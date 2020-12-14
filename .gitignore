@@ -1,0 +1,7 @@
+# Hidden files
+**/.*
+
+# But not:
+!.gitignore
+!.git
+!.github

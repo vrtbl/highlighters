@@ -1,0 +1,127 @@
+{
+    "scopeName": "source.passerine",
+    "name": "Passerine",
+    "fileTypes": [
+        "pn"
+    ],
+    "firstLineMatch": "",
+    "foldingStartMarker": "{s*$",
+    "foldingStopMarker": "^s*}",
+    "patterns": [
+        {
+            "include": "#comments"
+        },
+        {
+            "match": "\\b(syntax|if|else|for|in|match|fiber|yield|switch|try|error|use|type|impl|loop)\\b",
+            "name": "keyword.control.passerine"
+        },
+        {
+            "match": "(=|->|\\|>|\\.|\\|)",
+            "name": "keyword.other.region.passerine"
+        },
+        {
+            "match": "\\b(print)\\b",
+            "name": "support.function.builtin.passerine"
+        },
+        {
+            "begin": "\\\"",
+            "end": "\\\"",
+            "name": "string.double.passerine",
+            "patterns": [
+                {
+                    "include": "#escapes"
+                }
+            ]
+        },
+        {
+            "match": "\\b(true)\\b",
+            "name": "constant.language.true.passerine"
+        },
+        {
+            "match": "\\b(false)\\b",
+            "name": "constant.language.false.passerine"
+        },
+        {
+            "include": "#identifiers"
+        },
+        {
+            "include": "#numbers"
+        }
+    ],
+    "repository": {
+        "comments": {
+            "patterns": [
+                {
+                    "begin": "-{",
+                    "end": "}-",
+                    "name": "comment.block.passerine",
+                    "patterns": [
+                        {
+                            "include": "#comments"
+                        }
+                    ]
+                },
+                {
+                    "match": "--.*$",
+                    "name": "comment.line.double-dash.passerine"
+                }
+            ]
+        },
+        "identifiers": {
+            "patterns": [
+                {
+                    "match": "[a-z_][A-Za-z0-9_]*",
+                    "name": "variable.parameter.symbol.passerine"
+                },
+                {
+                    "match": "[A-Z_][A-Za-z0-9_]*",
+                    "name": "support.type.label.passerine"
+                },
+                {
+                    "match": "\\'[a-z_][A-Za-z0-9_]*",
+                    "name": "support.class.pseudokeyword.passerine"
+                }
+            ]
+        },
+        "escapes": {
+            "patterns": [
+                {
+                    "match": "\\\\(\"|\\\\|t|n)",
+                    "name": "constant.character.escape.passerine"
+                },
+                {
+                    "match": "({{|}})",
+                    "name": "constant.character.escape.bracket.passerine"
+                },
+                {
+                    "begin": "({)",
+                    "beginCaptures": {
+                        "1": { "name": "constant.character.escape.interpolated.passerine" }
+                    },
+                    "end": "(})",
+                    "endCaptures": {
+                        "1": { "name": "constant.character.escape.interpolated.passerine" }
+                    },
+                    "name": "text.source",
+                    "patterns": [
+                        {
+                            "include": "$self"
+                        }
+                    ]
+                }
+            ]
+        },
+        "numbers": {
+            "patterns": [
+                {
+                    "match": "[0-9]+.[0-9]+",
+                    "name": "constant.numeric.float"
+                },
+                {
+                    "match": "[0-9]+",
+                    "name": "constant.numeric.integer"
+                }
+            ]
+        }
+    }
+}

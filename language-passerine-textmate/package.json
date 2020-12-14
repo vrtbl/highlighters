@@ -1,0 +1,15 @@
+{
+  "name": "language-passerine",
+  "main": "./lib/language-passerine",
+  "version": "0.0.0",
+  "description": "A textmate grammar for Passerine for Atom",
+  "keywords": [
+  ],
+  "repository": "https://github.com/vrtbl/highlighters",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}
