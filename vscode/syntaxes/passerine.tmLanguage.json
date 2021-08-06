@@ -1,0 +1,572 @@
+{
+    "scopeName": "source.pn",
+    "name": "Passerine",
+    "fileTypes": [
+        "pn"
+    ],
+    "firstLineMatch": "",
+    "foldingStartMarker": "{s*$",
+    "foldingStopMarker": "^s*}",
+    "patterns": [
+        {
+            "comment": "macro define",
+            "begin": "(syntax)\\s+",
+            "beginCaptures":{
+                "1":{
+                    "name": "keyword.other.syntax.passerine"
+                }
+            },
+            "patterns":[
+                {
+                    "include": "#identifiers"
+                },
+                {
+                    "include": "#atom"
+                },
+                {
+                    "include": "#punctuation"
+                }
+            ],
+            "end":"\\{|$",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.brackets.curly.passerine"
+                }
+            }
+        },
+        {
+            "include": "#magic"
+        },
+        {
+            "include": "#comments"
+        },
+        {
+            "include": "#constants"
+        },
+        {
+            "include": "#keyword"
+        },
+        {
+            "comment": "assign region",
+            "begin": "\\b([a-z_][A-Za-z0-9_]*)\\s*=",
+            "beginCaptures":{
+                "1": {
+                    "name": "variable.other.symbol.passerine"
+                }
+            },
+            "patterns":[
+                {
+                    "include": "#magic"
+                },
+                {
+                    "include": "#strings"
+                },
+                {
+                    "include": "#constants"
+                },
+                {
+                    "include": "#call"
+                },
+                {
+                    "include": "#storage_definitions"
+                },
+                {
+                    "include": "#punctuation"
+                }
+            ],
+            "end": "($)"
+        },
+        {
+            "include": "#call"
+        },
+        {
+            "include":  "#identifiers"
+        },
+        {
+            "include": "#punctuation"
+        },
+        {
+            "include": "#strings"
+        },
+        {
+            "include": "#operators"
+        },
+        {
+            "include": "#controls"
+        }
+    ],
+    "repository": {
+        "embeded":{
+            "patterns":[
+                {
+                    "comment": "embeded ()call",
+                    "begin": "\\b(\\()",
+                    "beginCaptures":{
+                        "1":{
+                            "name": "punctuation.brackets.round.passerine"
+                        }
+                    },
+                    "patterns":[
+                        {
+                            "include": "#magic"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#punctuation"
+                        }
+                    ],
+                    "end":"(\\))"
+                },
+                {
+                    "comment": "embeded {} call",
+                    "begin": "\\b(\\{)",
+                    "beginCaptures":{
+                        "1":{
+                            "name": "punctuation.brackets.round.passerine"
+                        }
+                    },
+                    "patterns":[
+                        {
+                            "include": "#magic"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#punctuation"
+                        }
+                    ],
+                    "end":"(\\})"
+                }
+            ]
+        },
+        "magic":{
+            "patterns":[
+                {
+                    "comment": "magic call",
+                    "begin": "\\b(magic)\\s+((\").*(\"))\\s+\\(",
+                    "beginCaptures":{
+                        "1": {
+                            "name": "keyword.other.magic.passerine"
+                        },
+                        "2": {
+                            "name": "string.quoted.double.passerine"
+                        }
+                    },
+                    "patterns":[
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#embeded"
+                        },
+                        {
+                            "include": "#identifiers"
+                        },
+                        {
+                            "include": "#punctuation"
+                        }
+                    ],
+                    "end": "(\\))"
+                }
+            ]
+        },
+        "storage_definitions":{
+            "patterns":[
+                {
+                    "comment": "struct define or destruct",
+                    "begin": "([A-Z_][A-Za-z0-9_]*)\\s+",
+                    "beginCaptures":{
+                        "1":{
+                            "name": "support.type.label.passerine"
+                        }
+                    },
+                    "patterns":[
+                        {
+                            "include": "#identifiers"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#punctuation"
+                        }
+                    ],
+                    "end":"(=|$|(->))"
+                }
+            ]
+        },
+        "call":{
+            "patterns":[
+                {
+                    "comment": "region call",
+                    "begin": "\\b([a-z_][A-Za-z0-9_]*)\\s+",
+                    "beginCaptures":{
+                        "1":{
+                            "name": "entity.name.function.passerine"
+                        }
+                    },
+                    "patterns":[
+                        {
+                            "include": "#embeded"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#atom"
+                        },
+                        {
+                            "include": "#identifiers"
+                        },
+                        {
+                            "include": "#punctuation"
+                        }
+                    ],
+                    "end":"(\\n|$)"
+                },
+                {
+                    "comment": "dot call",
+                    "begin": "(\\.)\\s+",
+                    "beginCaptures":{
+                        "1":{
+                            "name": "keyword.other.region.passerine"
+                        }
+                    },
+                    "patterns":[
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#atom"
+                        },
+                        {
+                            "include": "#identifiers"
+                        },
+                        {
+                            "include": "#call"
+                        },
+                        {
+                            "include": "#punctuation"
+                        }
+                    ],
+                    "end":"(\\n|$)"
+                }
+            ]
+        },
+        "punctuation": {
+            "patterns": [
+                {
+                    "comment": "comma",
+                    "name": "punctuation.comma.passerine",
+                    "match": ","
+                },
+                {
+                    "comment": "curly braces",
+                    "name": "punctuation.brackets.curly.passerine",
+                    "match": "[{}]"
+                },
+                {
+                    "comment": "parentheses, round brackets",
+                    "name": "punctuation.brackets.round.passerine",
+                    "match": "[()]"
+                },
+                {
+                    "comment": "square brackets",
+                    "name": "punctuation.brackets.square.passerine",
+                    "match": "[\\[\\]]"
+                },
+                {
+                    "comment": "angle brackets",
+                    "name": "punctuation.brackets.angle.passerine",
+                    "match": "(?<!=)[<>]"
+                }
+            ]
+        },
+        "comments": {
+            "patterns": [
+                {
+                    "begin": "-{",
+                    "end": "}-",
+                    "name": "comment.block.passerine",
+                    "patterns": [
+                        {
+                            "include": "#comments"
+                        }
+                    ]
+                },
+                {
+                    "match": "\\s*--.*$",
+                    "name": "comment.line.double-dash.passerine"
+                }
+            ]
+        },
+        "controls":{
+            "patterns": [
+                {
+                    "match": "\\b(syntax|if|else|for|in|match|fiber|yield|switch|try|error|use|type|impl|loop)\\b",
+                    "name": "keyword.control.passerine"
+                }
+            ]
+        },
+        "atom":{
+            "patterns":[
+                {
+                    "match": "\\'[a-z_][A-Za-z0-9_]*",
+                    "name": "support.class.pseudokeyword.passerine"
+                },
+                {
+                    "match": "\\([a-z_][A-Za-z0-9_]*\\)",
+                    "name": "support.class.pseudokeyword.passerine"
+                }
+            ]
+        },
+        "identifiers": {
+            "patterns": [
+                {
+                    "match": "[a-z_][A-Za-z0-9_]*",
+                    "name": "variable.parameter.symbol.passerine"
+                },
+                {
+                    "match": "[A-Z_][A-Za-z0-9_]*",
+                    "name": "support.type.label.passerine"
+                }
+            ]
+        },
+        "region":{
+            "patterns":[
+                {
+                    "match": "(=|->|\\|>|\\.|\\|)",
+                    "name": "keyword.other.region.passerine"
+                }
+            ]
+        },
+        "escapes": {
+            "patterns": [
+                {
+                    "match": "\\\\(\"|\\\\|t|n)",
+                    "name": "constant.character.escape.passerine"
+                },
+                {
+                    "match": "({{|}})",
+                    "name": "constant.character.escape.bracket.passerine"
+                },
+                {
+                    "begin": "({)",
+                    "beginCaptures": {
+                        "1": { "name": "constant.character.escape.interpolated.passerine" }
+                    },
+                    "end": "(})",
+                    "endCaptures": {
+                        "1": { "name": "constant.character.escape.interpolated.passerine" }
+                    },
+                    "name": "text.source",
+                    "patterns": [
+                        {
+                            "include": "$self"
+                        }
+                    ]
+                }
+            ]
+        },
+        "keyword":{
+			"patterns": [
+                {
+                    "comment": "magic operator",
+                    "name": "keyword.other.magic.passerine",
+                    "match": "\\b(magic)\\b"
+                },
+				{
+                    "comment": "syntax",
+                    "name": "keyword.other.syntax.passerine",
+                    "match": "\\b(syntax)\\b"
+                }
+			]
+		},
+        "operators":{
+            "patterns":[
+                {
+                    "comment": "logical operators",
+                    "name": "keyword.operator.logical.passerine",
+                    "match": "(\\^|\\||\\|\\||&&|<<|>>|!)(?!=)"
+                },
+                {
+                    "comment": "logical AND, borrow references",
+                    "name": "keyword.operator.borrow.and.passerine",
+                    "match": "&(?![&=])"
+                },
+                {
+                    "comment": "assignment operators",
+                    "name": "keyword.operator.assignment.passerine",
+                    "match": "(\\+=|-=|\\*=|/=|%=|\\^=|&=|\\|=|<<=|>>=)"
+                },
+                {
+                    "comment": "single equal",
+                    "name": "keyword.operator.assignment.equal.passerine",
+                    "match": "(?<![<>])=(?!=|>)"
+                },
+                {
+                    "comment": "comparison operators",
+                    "name": "keyword.operator.comparison.passerine",
+                    "match": "(=(=)?(?!>)|!=|<=|(?<!=)>=)"
+                },
+                {
+                    "comment": "math operators",
+                    "name": "keyword.operator.math.passerine",
+                    "match": "(([+%]|(\\*(?!\\w)))(?!=))|(-(?!>))|(/(?!/))"
+                },
+                {
+                    "comment": "less than, greater than (special case)",
+                    "match": "(?:\\b|(?:(\\))|(\\])|(\\})))[ \\t]+([<>])[ \\t]+(?:\\b|(?:(\\()|(\\[)|(\\{)))",
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.brackets.round.passerine"
+                        },
+                        "2": {
+                            "name": "punctuation.brackets.square.passerine"
+                        },
+                        "3": {
+                            "name": "punctuation.brackets.curly.passerine"
+                        },
+                        "4": {
+                            "name": "keyword.operator.comparison.passerine"
+                        },
+                        "5": {
+                            "name": "punctuation.brackets.round.passerine"
+                        },
+                        "6": {
+                            "name": "punctuation.brackets.square.passerine"
+                        },
+                        "7": {
+                            "name": "punctuation.brackets.curly.passerine"
+                        }
+                    }
+                },
+                {
+                    "comment": "dot access",
+                    "name": "keyword.operator.access.dot.passerine",
+                    "match": "\\.(?!\\.)"
+                },
+                {
+                    "comment": "ranges, range patterns",
+                    "name": "keyword.operator.range.passerine",
+                    "match": "\\.{2}(=|\\.)?"
+                },
+                {
+                    "comment": "dashrocket, skinny arrow",
+                    "name": "keyword.operator.arrow.skinny.passerine",
+                    "match": "->"
+                }
+            ]
+        },
+        "constants":{
+			"patterns": [
+				{
+					"comment": "decimal integers and floats",
+					"name": "constant.numeric.decimal.passerine",
+					"match": "\\b\\d[\\d_]*(\\.?)[\\d_]*(?:(E)([+-])([\\d_]+))?(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\\b",
+					"captures": {
+						"1": {
+							"name": "punctuation.separator.dot.decimal.passerine"
+						},
+						"2": {
+							"name": "keyword.operator.exponent.passerine"
+						},
+						"3": {
+							"name": "keyword.operator.exponent.sign.passerine"
+						},
+						"4": {
+							"name": "constant.numeric.decimal.exponent.mantissa.passerine"
+						},
+						"5": {
+							"name": "entity.name.type.numeric.passerine"
+						}
+					}
+				},
+				{
+					"comment": "hexadecimal integers",
+					"name": "constant.numeric.hex.passerine",
+					"match": "\\b0x[\\da-fA-F_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\\b",
+					"captures": {
+						"1": {
+							"name": "entity.name.type.numeric.passerine"
+						}
+					}
+				},
+				{
+					"comment": "octal integers",
+					"name": "constant.numeric.oct.passerine",
+					"match": "\\b0o[0-7_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\\b",
+					"captures": {
+						"1": {
+							"name": "entity.name.type.numeric.passerine"
+						}
+					}
+				},
+				{
+					"comment": "binary integers",
+					"name": "constant.numeric.bin.passerine",
+					"match": "\\b0b[01_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\\b",
+					"captures": {
+						"1": {
+							"name": "entity.name.type.numeric.passerine"
+						}
+					}
+				},
+				{
+					"comment": "booleans",
+					"name": "constant.language.bool.passerine",
+					"match": "\\b(true|false)\\b"
+				}
+			]
+		},
+        "strings": {
+            "patterns": [
+                {
+                    "comment": "double-quoted strings and byte strings",
+                    "name": "string.quoted.double.passerine",
+                    "begin": "(b?)(\")",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.byte.raw.passerine"
+                        },
+                        "2": {
+                            "name": "punctuation.definition.string.passerine"
+                        }
+                    },
+                    "end": "\"",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.passerine"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#escapes"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
