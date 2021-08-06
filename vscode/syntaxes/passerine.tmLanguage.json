@@ -35,108 +35,7 @@
             }
         },
         {
-            "comment": "magic call",
-            "begin": "\\b(magic)\\s+((\").*(\"))\\s+\\(",
-            "beginCaptures":{
-                "1": {
-                    "name": "keyword.other.magic.passerine"
-                },
-                "2": {
-                    "name": "string.quoted.double.passerine"
-                }
-            },
-            "patterns":[
-                {
-                    "include": "#strings"
-                },
-                {
-                    "include": "#constants"
-                },
-                {
-                    "include": "#identifiers"
-                },
-                {
-                    "include": "#punctuation"
-                }
-            ],
-            "end": "(\\))"
-        },
-        {
-            "comment": "region define",
-            "begin": "\\b([a-z_][A-Za-z0-9_]*)(\\s*,\\s*[a-z_][A-Za-z0-9_]*)*\\s+=",
-            "beginCaptures":{
-                "1":{
-                    "name": "variable.other.passerine"
-                }
-            },
-            "patterns":[
-                {
-                    "include": "#magic"
-                },
-                {
-                    "include": "#definitions"
-                },
-                {
-                    "include": "#region"
-                },
-                {
-                    "include": "#keyword"
-                },
-                {
-                    "include": "#controls"
-                },
-                {
-                    "include": "#atom"
-                },
-                {
-                    "include": "#strings"
-                },
-                {
-                    "include": "#constants"
-                },
-                {
-                    "include": "#identifiers"
-                },
-                {
-                    "include": "#punctuation"
-                }
-            ],
-            "end":"(\\n|\\{|$)"
-        },
-        {
-            "comment": "region call",
-            "begin": "([a-z_][A-Za-z0-9_]*)\\s*",
-            "beginCaptures":{
-                "1":{
-                    "name": "entity.name.function.passerine"
-                }
-            },
-            "patterns":[
-                {
-                    "include": "#strings"
-                },
-                {
-                    "include": "#constants"
-                },
-                {
-                    "include": "#atom"
-                },
-                {
-                    "include": "#definitions"
-                },
-                {
-                    "include": "#punctuation"
-                }
-            ],
-            "end":"(\\n|$)"
-        },
-        {
-            "comment": "built in functions",
-            "match": "\\b(print|println)\\b",
-            "name": "support.function.builtin.passerine"
-        },
-        {
-            "include": "#punctuation"
+            "include": "#magic"
         },
         {
             "include": "#comments"
@@ -145,22 +44,49 @@
             "include": "#constants"
         },
         {
-            "include": "#strings"
-        },
-        {
-            "include": "#region"
-        },
-        {
             "include": "#keyword"
+        },
+        {
+            "comment": "assign region",
+            "begin": "\\b([a-z_][A-Za-z0-9_]*)\\s*=",
+            "beginCaptures":{
+                "1": {
+                    "name": "variable.other.symbol.passerine"
+                }
+            },
+            "patterns":[
+                {
+                    "include": "#magic"
+                },
+                {
+                    "include": "#strings"
+                },
+                {
+                    "include": "#constants"
+                },
+                {
+                    "include": "#call"
+                },
+                {
+                    "include": "#storage_definitions"
+                },
+                {
+                    "include": "#punctuation"
+                }
+            ],
+            "end": "($)"
+        },
+        {
+            "include": "#call"
         },
         {
             "include":  "#identifiers"
         },
         {
-            "include": "#definitions"
+            "include": "#punctuation"
         },
         {
-            "include": "#magic"
+            "include": "#strings"
         },
         {
             "include": "#operators"
@@ -170,6 +96,58 @@
         }
     ],
     "repository": {
+        "embeded":{
+            "patterns":[
+                {
+                    "comment": "embeded ()call",
+                    "begin": "\\b(\\()",
+                    "beginCaptures":{
+                        "1":{
+                            "name": "punctuation.brackets.round.passerine"
+                        }
+                    },
+                    "patterns":[
+                        {
+                            "include": "#magic"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#punctuation"
+                        }
+                    ],
+                    "end":"(\\))"
+                },
+                {
+                    "comment": "embeded {} call",
+                    "begin": "\\b(\\{)",
+                    "beginCaptures":{
+                        "1":{
+                            "name": "punctuation.brackets.round.passerine"
+                        }
+                    },
+                    "patterns":[
+                        {
+                            "include": "#magic"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#punctuation"
+                        }
+                    ],
+                    "end":"(\\})"
+                }
+            ]
+        },
         "magic":{
             "patterns":[
                 {
@@ -191,6 +169,9 @@
                             "include": "#constants"
                         },
                         {
+                            "include": "#embeded"
+                        },
+                        {
                             "include": "#identifiers"
                         },
                         {
@@ -198,6 +179,98 @@
                         }
                     ],
                     "end": "(\\))"
+                }
+            ]
+        },
+        "storage_definitions":{
+            "patterns":[
+                {
+                    "comment": "struct define or destruct",
+                    "begin": "([A-Z_][A-Za-z0-9_]*)\\s+",
+                    "beginCaptures":{
+                        "1":{
+                            "name": "support.type.label.passerine"
+                        }
+                    },
+                    "patterns":[
+                        {
+                            "include": "#identifiers"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#punctuation"
+                        }
+                    ],
+                    "end":"(=|$|(->))"
+                }
+            ]
+        },
+        "call":{
+            "patterns":[
+                {
+                    "comment": "region call",
+                    "begin": "\\b([a-z_][A-Za-z0-9_]*)\\s+",
+                    "beginCaptures":{
+                        "1":{
+                            "name": "entity.name.function.passerine"
+                        }
+                    },
+                    "patterns":[
+                        {
+                            "include": "#embeded"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#atom"
+                        },
+                        {
+                            "include": "#identifiers"
+                        },
+                        {
+                            "include": "#punctuation"
+                        }
+                    ],
+                    "end":"(\\n|$)"
+                },
+                {
+                    "comment": "dot call",
+                    "begin": "(\\.)\\s+",
+                    "beginCaptures":{
+                        "1":{
+                            "name": "keyword.other.region.passerine"
+                        }
+                    },
+                    "patterns":[
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#atom"
+                        },
+                        {
+                            "include": "#identifiers"
+                        },
+                        {
+                            "include": "#call"
+                        },
+                        {
+                            "include": "#punctuation"
+                        }
+                    ],
+                    "end":"(\\n|$)"
                 }
             ]
         },
@@ -268,75 +341,6 @@
                 }
             ]
         },
-        "definitions":{
-            "patterns":[
-                {
-                    "comment": "lamba define",
-                    "begin": "(\\()",
-                    "beginCaptures":{
-                        "1":{
-                            "name": "punctuation.brackets.round.passerine"
-                        }
-                    },
-                    "patterns":[
-                        {
-                            "include": "#magic"
-                        },
-                        {
-                            "include": "#punctuation"
-                        },
-                        {
-                            "include": "#region"
-                        },
-                        {
-                            "include": "#constants"
-                        },
-                        {
-                            "include": "#keyword"
-                        },
-                        {
-                            "include": "#identifiers"
-                        },
-                        {
-                            "include": "#definitions"
-                        },
-                        {
-                            "include": "#atom"
-                        }
-                    ],
-                    "end":"(\\))",
-                    "endCaptures":{
-                        "1":{
-                            "name": "punctuation.brackets.round.passerine"
-                        }
-                    }
-                },
-                {
-                    "comment": "struct define or destruct",
-                    "begin": "([A-Z_][A-Za-z0-9_]*)\\s+",
-                    "beginCaptures":{
-                        "1":{
-                            "name": "support.type.label.passerine"
-                        }
-                    },
-                    "patterns":[
-                        {
-                            "include": "#identifiers"
-                        },
-                        {
-                            "include": "#strings"
-                        },
-                        {
-                            "include": "#constants"
-                        },
-                        {
-                            "include": "#punctuation"
-                        }
-                    ],
-                    "end":"(=|$|(->))"
-                }
-            ]
-        },
         "identifiers": {
             "patterns": [
                 {
@@ -346,37 +350,6 @@
                 {
                     "match": "[A-Z_][A-Za-z0-9_]*",
                     "name": "support.type.label.passerine"
-                }
-            ]
-        },
-        "clausure":{
-            "patterns":[
-                {
-                    "comment": "region call",
-                    "begin": "([a-z_][A-Za-z0-9_]*)\\s+",
-                    "beginCaptures":{
-                        "1":{
-                            "name": "entity.name.function.passerine"
-                        }
-                    },
-                    "patterns":[
-                        {
-                            "include": "#strings"
-                        },
-                        {
-                            "include": "#constants"
-                        },
-                        {
-                            "include": "#atom"
-                        },
-                        {
-                            "include": "#definitions"
-                        },
-                        {
-                            "include": "#punctuation"
-                        }
-                    ],
-                    "end":"(\\n|$)"
                 }
             ]
         },
