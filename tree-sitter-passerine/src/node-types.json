@@ -16,6 +16,10 @@
             "named": true
           },
           {
+            "type": "label_pattern",
+            "named": true
+          },
+          {
             "type": "tuple_pattern",
             "named": true
           }
@@ -38,11 +42,11 @@
             "named": true
           },
           {
-            "type": "discard",
+            "type": "ident",
             "named": true
           },
           {
-            "type": "ident",
+            "type": "lambda",
             "named": true
           },
           {
@@ -54,7 +58,7 @@
             "named": true
           },
           {
-            "type": "tuple_pattern",
+            "type": "tuple",
             "named": true
           },
           {
@@ -96,11 +100,11 @@
             "named": true
           },
           {
-            "type": "discard",
+            "type": "ident",
             "named": true
           },
           {
-            "type": "ident",
+            "type": "lambda",
             "named": true
           },
           {
@@ -112,7 +116,7 @@
             "named": true
           },
           {
-            "type": "tuple_pattern",
+            "type": "tuple",
             "named": true
           },
           {
@@ -158,10 +162,6 @@
             "named": true
           },
           {
-            "type": "op_mod",
-            "named": true
-          },
-          {
             "type": "op_mul",
             "named": true
           },
@@ -175,6 +175,10 @@
           },
           {
             "type": "op_pow",
+            "named": true
+          },
+          {
+            "type": "op_rem",
             "named": true
           },
           {
@@ -200,11 +204,11 @@
             "named": true
           },
           {
-            "type": "discard",
+            "type": "ident",
             "named": true
           },
           {
-            "type": "ident",
+            "type": "lambda",
             "named": true
           },
           {
@@ -216,7 +220,7 @@
             "named": true
           },
           {
-            "type": "tuple_pattern",
+            "type": "tuple",
             "named": true
           },
           {
@@ -244,15 +248,11 @@
           "named": true
         },
         {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "discard",
-          "named": true
-        },
-        {
           "type": "ident",
+          "named": true
+        },
+        {
+          "type": "lambda",
           "named": true
         },
         {
@@ -264,7 +264,93 @@
           "named": true
         },
         {
+          "type": "tuple",
+          "named": true
+        },
+        {
+          "type": "unit",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "label_pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "discard",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "label_pattern",
+          "named": true
+        },
+        {
           "type": "tuple_pattern",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "lambda",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "lambda",
+          "named": true
+        },
+        {
+          "type": "number_literal",
+          "named": true
+        },
+        {
+          "type": "op_lambda",
+          "named": true
+        },
+        {
+          "type": "parameter_list",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "tuple",
           "named": true
         },
         {
@@ -291,6 +377,10 @@
           "named": true
         },
         {
+          "type": "label_pattern",
+          "named": true
+        },
+        {
           "type": "tuple_pattern",
           "named": true
         }
@@ -303,7 +393,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "assignment",
@@ -318,11 +408,11 @@
           "named": true
         },
         {
-          "type": "discard",
+          "type": "ident",
           "named": true
         },
         {
-          "type": "ident",
+          "type": "lambda",
           "named": true
         },
         {
@@ -334,7 +424,7 @@
           "named": true
         },
         {
-          "type": "tuple_pattern",
+          "type": "tuple",
           "named": true
         },
         {
@@ -350,18 +440,57 @@
     "fields": {},
     "children": {
       "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tuple",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "close_quote",
+          "type": "assignment",
           "named": true
         },
         {
-          "type": "open_quote",
+          "type": "binary_expression",
           "named": true
         },
         {
-          "type": "string",
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "lambda",
+          "named": true
+        },
+        {
+          "type": "number_literal",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "tuple",
+          "named": true
+        },
+        {
+          "type": "unit",
           "named": true
         }
       ]
@@ -373,7 +502,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "discard",
@@ -381,6 +510,10 @@
         },
         {
           "type": "ident",
+          "named": true
+        },
+        {
+          "type": "label_pattern",
           "named": true
         },
         {
@@ -392,6 +525,10 @@
   },
   {
     "type": "\n",
+    "named": false
+  },
+  {
+    "type": "\"",
     "named": false
   },
   {
@@ -415,15 +552,19 @@
     "named": true
   },
   {
-    "type": "close_quote",
-    "named": true
-  },
-  {
     "type": "discard",
     "named": true
   },
   {
+    "type": "escape_sequence",
+    "named": true
+  },
+  {
     "type": "ident",
+    "named": true
+  },
+  {
+    "type": "label",
     "named": true
   },
   {
@@ -455,10 +596,6 @@
     "named": true
   },
   {
-    "type": "op_function",
-    "named": true
-  },
-  {
     "type": "op_geq",
     "named": true
   },
@@ -467,15 +604,15 @@
     "named": true
   },
   {
+    "type": "op_lambda",
+    "named": true
+  },
+  {
     "type": "op_leq",
     "named": true
   },
   {
     "type": "op_less",
-    "named": true
-  },
-  {
-    "type": "op_mod",
     "named": true
   },
   {
@@ -495,15 +632,11 @@
     "named": true
   },
   {
+    "type": "op_rem",
+    "named": true
+  },
+  {
     "type": "op_sub",
-    "named": true
-  },
-  {
-    "type": "open_quote",
-    "named": true
-  },
-  {
-    "type": "string",
     "named": true
   },
   {

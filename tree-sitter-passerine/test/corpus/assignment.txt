@@ -1,0 +1,68 @@
+====================================================================================================
+Form assignments
+====================================================================================================
+
+a = 5
+a = "string literal"
+
+----------------------------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    left: (ident)
+    (op_assign)
+    right: (number_literal))
+  (assignment
+    left: (ident)
+    (op_assign)
+    right: (string_literal)))
+
+====================================================================================================
+Block assignment
+====================================================================================================
+
+a = {
+    x = 2
+    2 * x
+}
+
+----------------------------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    left: (ident)
+    (op_assign)
+    right: (block
+      (assignment
+        left: (ident)
+        (op_assign)
+        right: (number_literal))
+      (binary_expression
+        left: (number_literal)
+        operator: (op_mul)
+        right: (ident)))))
+
+====================================================================================================
+Tuple assignment
+====================================================================================================
+
+(x, y) = (x -> x * 2, 2)
+
+----------------------------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    left: (tuple_pattern
+      (ident)
+      (ident))
+    (op_assign)
+    right: (tuple
+      (lambda
+        (parameter_list
+          (ident))
+        (op_lambda)
+        (binary_expression
+          left: (ident)
+          operator: (op_mul)
+          right: (number_literal)))
+      (number_literal))))
