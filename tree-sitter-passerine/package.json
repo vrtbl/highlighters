@@ -1,0 +1,27 @@
+{
+  "name": "tree-sitter-passerine",
+  "version": "1.0.0",
+  "description": "Tree-sitter grammar for Passerine",
+  "main": "bindings/node",
+  "keywords": [
+    "parser",
+    "passerine"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Knut Magnus Aasrud",
+  "license": "MIT",
+  "dependencies": {
+    "nan": "^2.16.0"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.passerine",
+      "injection-regex": "passerine",
+      "file-types": [
+        "pn"
+      ]
+    }
+  ]
+}

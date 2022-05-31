@@ -1,0 +1,25 @@
+====================================================================================================
+Oneliner lambda
+====================================================================================================
+
+linear = m b x -> b + m * x
+
+----------------------------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    left: (ident)
+    (op_assign)
+    right: (lambda
+      (parameter_list
+        (ident)
+        (ident)
+        (ident))
+      (op_lambda)
+      (binary_expression
+        left: (ident)
+        operator: (op_add)
+        right: (binary_expression
+          left: (ident)
+          operator: (op_mul)
+          right: (ident))))))
